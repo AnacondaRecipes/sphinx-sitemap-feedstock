@@ -44,7 +44,7 @@ about:
   summary: Sitemap generator for Sphinx
   description: |
     A Sphinx extension to generate multi-version and multi-language sitemaps.org compliant sitemaps 
-    for the HTML version of your Sphinx documentation.
+    for the HTML version of your Sphinx documentation
   license: MIT
   license_family: MIT
   license_file: LICENSE
