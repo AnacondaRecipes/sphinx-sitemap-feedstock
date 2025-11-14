@@ -1,17 +1,16 @@
 {% set name = "sphinx-sitemap" %}
-{% set version = "2.5.1" %}
+{% set version = "2.9.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 984bef068bbdbc26cfae209a8b61392e9681abc9191b477cd30da406e3a60ee5
+  url: https://github.com/jdillard/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: dbf4b75777b60eb22fdc8222983d2c6a0229926902fc1d70077b9abbb4121b5c
 
 build:
   number: 0
-  skip: True  # [py<37]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -22,25 +21,30 @@ requirements:
     - wheel
   run:
     - python
-    - six
-    - sphinx >=1.2
+    - sphinx-last-updated-by-git
 
 test:
+  source_files:
+    - tests
   imports:
     - sphinx_sitemap
-  requires:
-    - pip
   commands:
     - pip check
+    - pytest -v tests
+  requires:
+    - pip
+    - pytest
+    - gitpython
+    - defusedxml
 
 about:
   home: https://github.com/jdillard/sphinx-sitemap
   dev_url: https://github.com/jdillard/sphinx-sitemap
-  doc_url: https://sphinx-sitemap.readthedocs.io/
+  doc_url: https://sphinx-sitemap.readthedocs.io
   summary: Sitemap generator for Sphinx
   description: |
     A Sphinx extension to generate multi-version and multi-language sitemaps.org compliant sitemaps 
-    for the HTML version of your Sphinx documentation.
+    for the HTML version of your Sphinx documentation
   license: MIT
   license_family: MIT
   license_file: LICENSE
